@@ -5,7 +5,7 @@ import "./style.css";
 const Nav = props =>
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
-            <div ClassName="navbar-header">
+            <div className="navbar-header">
                 <Link className="navbar-brand" to="/">
                 Google Books
                 </Link>

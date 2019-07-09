@@ -8,3 +8,9 @@ Routes
 home "/"
 Search "/books"
 Saved "/books:id"
+
+Components
+<!-- ========================== -->
+Navbar
+Footer
+Jumbotron
