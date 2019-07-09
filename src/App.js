@@ -14,7 +14,9 @@ const App = () => {
     <div>
       <Nav />
       <Wrapper>
-
+        <Route exact path="/" component={Search} />
+        <Route exact path="/books" component={Search} />
+        <Route exact path="/books:id" component={Saved} />
       </Wrapper>
       <Footer />
     </div>
