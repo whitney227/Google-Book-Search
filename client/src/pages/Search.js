@@ -60,11 +60,12 @@ class Search extends Component {
                   <Row>
                     <Col size="md-12">
                       <Card
-                        heading={this.state.results.volumeInfo.title || "Search for a Book"}
+                        heading={"Results"}
                       >
                         {this.state.results.volumeInfo.title ? (
                           <BookDetails
                             src={this.state.results.volumeInfo.imageLinks.thumbnail}
+                            title={this.state.results.volumeInfo.title}
                             author={this.state.results.volumeInfo.authors}
                             description={this.state.items.volumeInfo.description}
                             view={this.state.results.volumeInfo.previewLink}
