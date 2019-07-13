@@ -1,14 +1,16 @@
 import React from "react";
 
-function BookDetails(props) {
+// Export both the list and listitem
+
+export function List({ children }) {
   return (
-    <div className="text-center">
-      <img alt={props.title} className="img-fluid" src={props.src} style={{ margin: "0 auto" }} />
-      <h3>Author(s): {props.author}</h3>
-      <h3>Summary: {props.description}</h3>
-      <link href={props.view}>Preview</link>
+    <div className="list-overflow-container">
+      <ul className="list-group">{children}</ul>
     </div>
   );
 }
 
-export default BookDetails;
+export function ListItem ({ children }) {
+  return <li className="list-group-item">{children}</li>;
+}
+
