@@ -60,14 +60,14 @@ class Search extends Component {
                   <Row>
                     <Col size="md-12">
                       <Card
-                        heading={this.state.results.items.volumeInfo.title || "Search for a Book"}
+                        heading={this.state.results.volumeInfo.title || "Search for a Book"}
                       >
-                        {this.state.results.items.volumeInfo.title ? (
+                        {this.state.results.volumeInfo.title ? (
                           <BookDetails
-                            src={this.state.results.items.volumeInfo.imageLinks.thumbnail}
-                            author={this.state.results.items.volumeInfo.authors}
-                            description={this.state.results.items.volumeInfo.description}
-                            view={this.state.results.items.volumeInfo.previewLink}
+                            src={this.state.results.volumeInfo.imageLinks.thumbnail}
+                            author={this.state.results.volumeInfo.authors}
+                            description={this.state.items.volumeInfo.description}
+                            view={this.state.results.volumeInfo.previewLink}
                           />
                         ) : (
                           <h3>No Results to Display</h3>
