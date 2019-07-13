@@ -1,23 +1,42 @@
 import React, {Component} from "react";
 import {Container, Row, Col} from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import {BookList, BookListItem } from "../components/BookList"
+import Form from "../components/Form";
+import BookDetails from "../components/BookDetails";
+import Card from "../components/Card";
+import API from "../utils/API";
 
 class Search extends Component {
     state={
-        books: [],
-        bookSearch: ""    
+        results: [],
+        search: ""    
     };
+
+    // When the component mounts, load the book search
+    componentDidMount() {
+    this.loadBookSearch();
+    }
+
+    loadBookSearch = () => {
+      API.search()
+      .then(res => this.setState({ results: res.data}))
+      .catch(err => console.log(err));
+    }
 
     handleInputChange = event => {
-
+      const value = event.target.value;
+      const name = event.target.name;
+      this.setState({
+        [name]: value
+      });
     };
 
+    // When the form is submitted, search the API for the value of `this.state.search`
     handleFormSubmit = event => {
-        
-    }
+      event.preventDefault();
+      this.loadBookSearch(this.state.search);
+    };
+
 
     render() {
         return (
@@ -27,59 +46,38 @@ class Search extends Component {
                     <h2>Search for and Save Books of Interest</h2>
                 </Jumbotron>
                 <Container>
-                    <Row>
-                        <Col size="md-12">
-                            <form>
-                            <Container>
-                              <Row>
-                                <Col size="xs-9 sm-10">
-                                  <Input
-                                    name="bookSearch"
-                                    value={this.state.bookSearch}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Search For a Book"
-                                  />
-                                </Col>
-                                <Col size="xs-3 sm-2">
-                                  <Button
-                                    onClick={this.handleFormSubmit}
-                                    type="success"
-                                    className="input-lg"
-                                  >
-                                    Search
-                                  </Button>
-                                </Col>
-                              </Row>
-                            </Container>
-                            </form>
-                        </Col>
-                    </Row>
-                    <Row>
-                      <Col size="xs-12">
-                        {!this.state.books.length ? (
-                          <h1 className="text-center">No Books to Display</h1>
+                  <Row>
+                    <Col size="md-12">
+                      <Card heading="Book Search">
+                        <Form
+                        value={this.state.search}
+                        handleInputChange={this.handleInputChange}
+                        handleFormSubmit={this.handleFormSubmit}
+                        />
+                      </Card>
+                    </Col>        
+                  </Row>
+                  <Row>
+                    <Col size="md-12">
+                      <Card
+                        heading={this.state.results.items.volumeInfo.title || "Search for a Book"}
+                      >
+                        {this.state.results.items.volumeInfo.title ? (
+                          <BookDetails
+                            src={this.state.results.items.volumeInfo.imageLinks.thumbnail}
+                            author={this.state.results.items.volumeInfo.authors}
+                            description={this.state.results.items.volumeInfo.description}
+                            view={this.state.results.items.volumeInfo.previewLink}
+                          />
                         ) : (
-                          <BookList>
-                            {this.state.books.map(book => {
-                              return (
-                                <BookListItem
-                                  key={book.title}
-                                  title={book.title}
-                                  description={book.description}
-                                  thumbnail={book.thumbnail}
-                                  link={book.lin}
-                                />
-                              );
-                            })}
-                          </BookList>
+                          <h3>No Results to Display</h3>
                         )}
-                      </Col>
-                    </Row>
-
+                      </Card>
+                    </Col>
+                  </Row>
                 </Container>
             </div>
-
-        )
+        );
     }
 }
 
